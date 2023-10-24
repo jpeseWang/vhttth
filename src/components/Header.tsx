@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
+import { signOut, useSession } from 'next-auth/react'
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 
@@ -91,6 +92,7 @@ function MobileNavItem({
 function MobileNavigation(
   props: React.ComponentPropsWithoutRef<typeof Popover>,
 ) {
+  const session = useSession()
   return (
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
@@ -134,8 +136,23 @@ function MobileNavigation(
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 <MobileNavItem href="/about">About</MobileNavItem>
                 <MobileNavItem href="/projects">Projects</MobileNavItem>
-                <MobileNavItem href="/">Forum</MobileNavItem>
-                <MobileNavItem href="/auth/login">Login</MobileNavItem>
+                <MobileNavItem href="/categories">Category</MobileNavItem>
+                <MobileNavItem href="/forum">Forum</MobileNavItem>
+                {session.data?.role === 'Admin' && (
+                  <MobileNavItem href="/management">Management</MobileNavItem>
+                )}
+                {session.status === 'authenticated' ? (
+                  <button
+                    className="pt-2"
+                    onClick={() => {
+                      signOut()
+                    }}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <MobileNavItem href="/auth/login">Login</MobileNavItem>
+                )}
               </ul>
             </nav>
           </Popover.Panel>
@@ -173,15 +190,32 @@ function NavItem({
     </li>
   )
 }
-
+//Desktop
 function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+  const session = useSession()
+
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         <NavItem href="/about">About</NavItem>
         <NavItem href="/projects">Projects</NavItem>
-        <NavItem href="/">Forum</NavItem>
-        <NavItem href="/auth/login">Login</NavItem>
+        <NavItem href="/categories">Category</NavItem>
+        <NavItem href="/forum">Forum</NavItem>
+        {session.data?.role === 'Admin' && (
+          <NavItem href="/management">Management</NavItem>
+        )}
+        {session.status === 'authenticated' ? (
+          <button
+            className="ml-2"
+            onClick={() => {
+              signOut()
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <NavItem href="/auth/login">Login</NavItem>
+        )}
       </ul>
     </nav>
   )
@@ -261,12 +295,13 @@ function Avatar({
 }
 
 export function Header() {
+  const session = useSession()
   let isHomePage = usePathname() === '/'
 
   let headerRef = useRef<React.ElementRef<'div'>>(null)
   let avatarRef = useRef<React.ElementRef<'div'>>(null)
   let isInitial = useRef(true)
-
+  console.log(session)
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0
     let upDelay = 64
@@ -442,6 +477,10 @@ export function Header() {
                 <DesktopNavigation className="pointer-events-auto hidden md:block" />
               </div>
               <div className="flex justify-end md:flex-1">
+                {session.status === 'authenticated' && (
+                  <p className="pr-2 pt-2">Hi {session.data?.fullname}!</p>
+                )}
+
                 <div className="pointer-events-auto">
                   <ThemeToggle />
                 </div>

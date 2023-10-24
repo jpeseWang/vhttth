@@ -1,9 +1,10 @@
 import { type Metadata } from 'next'
-
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
-
+import toast, { Toaster } from 'react-hot-toast'
 import '@/styles/tailwind.css'
+import 'react-quill/dist/quill.snow.css'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>
+          <Toaster position="top-center" reverseOrder={false} />
           <div className="flex w-full">
             <Layout>{children}</Layout>
           </div>
