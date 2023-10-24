@@ -178,7 +178,7 @@ function NavItem({ href, children }) {
   )
 }
 //Desktop
-function DesktopNavigation() {
+function DesktopNavigation(props) {
   const session = useSession()
 
   return (
