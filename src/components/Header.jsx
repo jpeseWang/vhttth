@@ -12,7 +12,7 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import avatarImage from '@/images/logos/logo.png'
 
-function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function CloseIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
@@ -27,7 +27,7 @@ function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function ChevronDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function ChevronDownIcon() {
   return (
     <svg viewBox="0 0 8 6" aria-hidden="true" {...props}>
       <path
@@ -41,7 +41,7 @@ function ChevronDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function SunIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function MoonIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
@@ -73,13 +73,7 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function MobileNavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
+function MobileNavItem({ href, children }) {
   return (
     <li>
       <Popover.Button as={Link} href={href} className="block py-2">
@@ -89,10 +83,9 @@ function MobileNavItem({
   )
 }
 
-function MobileNavigation(
-  props: React.ComponentPropsWithoutRef<typeof Popover>,
-) {
+function MobileNavigation() {
   const session = useSession()
+
   return (
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
@@ -138,7 +131,7 @@ function MobileNavigation(
                 <MobileNavItem href="/projects">Projects</MobileNavItem>
                 <MobileNavItem href="/categories">Category</MobileNavItem>
                 <MobileNavItem href="/forum">Forum</MobileNavItem>
-                {session.data?.role === 'Admin' && (
+                {session?.data?.role === 'Admin' && (
                   <MobileNavItem href="/management">Management</MobileNavItem>
                 )}
                 {session.status === 'authenticated' ? (
@@ -162,13 +155,7 @@ function MobileNavigation(
   )
 }
 
-function NavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
+function NavItem({ href, children }) {
   let isActive = usePathname() === href
 
   return (
@@ -191,7 +178,7 @@ function NavItem({
   )
 }
 //Desktop
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+function DesktopNavigation() {
   const session = useSession()
 
   return (
@@ -201,8 +188,8 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
         <NavItem href="/projects">Projects</NavItem>
         <NavItem href="/categories">Category</NavItem>
         <NavItem href="/forum">Forum</NavItem>
-        {session.data?.role === 'Admin' && (
-          <NavItem href="/management">Management</NavItem>
+        {session?.data?.role === 'Admin' && (
+          <MobileNavItem href="/management">Management</MobileNavItem>
         )}
         {session.status === 'authenticated' ? (
           <button
@@ -245,16 +232,13 @@ function ThemeToggle() {
   )
 }
 
-function clamp(number: number, a: number, b: number) {
+function clamp(number, a, b) {
   let min = Math.min(a, b)
   let max = Math.max(a, b)
   return Math.min(Math.max(number, min), max)
 }
 
-function AvatarContainer({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'>) {
+function AvatarContainer({ className, ...props }) {
   return (
     <div
       className={clsx(
@@ -266,13 +250,7 @@ function AvatarContainer({
   )
 }
 
-function Avatar({
-  large = false,
-  className,
-  ...props
-}: Omit<React.ComponentPropsWithoutRef<typeof Link>, 'href'> & {
-  large?: boolean
-}) {
+function Avatar({ large = false, className, ...props }) {
   return (
     <Link
       href="/"
@@ -298,19 +276,19 @@ export function Header() {
   const session = useSession()
   let isHomePage = usePathname() === '/'
 
-  let headerRef = useRef<React.ElementRef<'div'>>(null)
-  let avatarRef = useRef<React.ElementRef<'div'>>(null)
+  let headerRef = useRef < React.ElementRef < 'div' >> null
+  let avatarRef = useRef < React.ElementRef < 'div' >> null
   let isInitial = useRef(true)
   console.log(session)
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0
     let upDelay = 64
 
-    function setProperty(property: string, value: string) {
+    function setProperty(property, value) {
       document.documentElement.style.setProperty(property, value)
     }
 
-    function removeProperty(property: string) {
+    function removeProperty(property) {
       document.documentElement.style.removeProperty(property)
     }
 
@@ -420,15 +398,13 @@ export function Header() {
             <Container
               className="top-0 order-last -mb-3 pt-3"
               style={{
-                position:
-                  'var(--header-position)' as React.CSSProperties['position'],
+                position: 'var(--header-position)',
               }}
             >
               <div
                 className="top-[var(--avatar-top,theme(spacing.3))] w-full"
                 style={{
-                  position:
-                    'var(--header-inner-position)' as React.CSSProperties['position'],
+                  position: 'var(--header-inner-position)',
                 }}
               >
                 <div className="relative">
@@ -453,15 +429,13 @@ export function Header() {
           ref={headerRef}
           className="top-0 z-10 h-16 pt-6"
           style={{
-            position:
-              'var(--header-position)' as React.CSSProperties['position'],
+            position: 'var(--header-position)',
           }}
         >
           <Container
             className="top-[var(--header-top,theme(spacing.6))] w-full"
             style={{
-              position:
-                'var(--header-inner-position)' as React.CSSProperties['position'],
+              position: 'var(--header-inner-position)',
             }}
           >
             <div className="relative flex gap-4">
@@ -478,7 +452,7 @@ export function Header() {
               </div>
               <div className="flex justify-end md:flex-1">
                 {session.status === 'authenticated' && (
-                  <p className="pr-2 pt-2">Hi {session.data?.fullname}!</p>
+                  <p className="pr-2 pt-2">Hi {session?.data?.fullname}!</p>
                 )}
 
                 <div className="pointer-events-auto">
