@@ -84,7 +84,7 @@ function MobileNavItem({ href, children }) {
   )
 }
 
-function MobileNavigation() {
+function MobileNavigation(props) {
   const session = useSession()
 
   return (
