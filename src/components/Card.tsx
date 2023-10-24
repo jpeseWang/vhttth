@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import clsx from 'clsx'
+import React from 'react'
 
 function ChevronRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (

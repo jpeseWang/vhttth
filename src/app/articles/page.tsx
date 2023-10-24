@@ -1,5 +1,5 @@
+import React from 'react'
 import { type Metadata } from 'next'
-
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'

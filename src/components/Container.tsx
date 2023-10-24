@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import clsx from 'clsx'
+import React from 'react'
 
 export const ContainerOuter = forwardRef<
   React.ElementRef<'div'>,
