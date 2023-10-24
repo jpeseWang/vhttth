@@ -13,7 +13,7 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import avatarImage from '@/images/logos/logo.png'
 
-function CloseIcon() {
+function CloseIcon(props) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
@@ -28,7 +28,7 @@ function CloseIcon() {
   )
 }
 
-function ChevronDownIcon() {
+function ChevronDownIcon(props) {
   return (
     <svg viewBox="0 0 8 6" aria-hidden="true" {...props}>
       <path
@@ -42,7 +42,7 @@ function ChevronDownIcon() {
   )
 }
 
-function SunIcon() {
+function SunIcon(props) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ function SunIcon() {
   )
 }
 
-function MoonIcon() {
+function MoonIcon(props) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
