@@ -44,16 +44,18 @@ export default function ConfirmationModal({
             htmlFor="name"
             className="block text-2xl font-semibold leading-6 text-gray-900"
           >
-            Email confirmation!
+            Xác thực địa chỉ Email!
           </label>
           <p className="my-1 text-sm font-medium text-gray-700">
-            We have sent a code to <span className="italic">{email}</span>
+            Chúng mình đã gửi mã xác thực tới email:{' '}
+            <span className="italic">{email}</span>.<br></br> Vui lòng kiểm tra
+            hòm thư và xác nhận để tiếp tục.
           </p>
           <div className="relative mt-4">
             <input
               type="text"
               className="peer block w-full border-0 bg-gray-50 px-1.5 py-1.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
-              placeholder="Secret code"
+              placeholder="Mã xác thực"
               onChange={(e) => {
                 setIsError(false)
                 setInput(e.target.value)
@@ -78,7 +80,7 @@ export default function ConfirmationModal({
               onClose()
             }}
           >
-            Close
+            Đóng
           </button>
           <button
             className="rounded-sm bg-[#1C35ED] px-4 py-1.5 font-bold text-white hover:bg-blue-700"
@@ -86,7 +88,7 @@ export default function ConfirmationModal({
               checkCapcha()
             }}
           >
-            Confirm sign up
+            Xác nhận đăng ký
           </button>
         </div>
       </div>

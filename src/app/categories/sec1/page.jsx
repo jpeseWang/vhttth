@@ -14,13 +14,15 @@ export default function Example() {
   }
   return (
     <div className=" py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             Những điều cần biết về trường
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Learn how to grow your business with our expert advice.
+          <p className="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">
+            Các thông tin cơ bản về trường học, bao gồm vị trí, cơ sở vật chất,
+            các dịch vụ và tiện ích, lịch học, và các quy định quan trọng mà học
+            sinh và phụ huynh cần biết.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -52,20 +54,6 @@ export default function Example() {
                 </h3>
               </article>
             ))}
-          {/* {data
-            ?.filter((p) => p.category === 'Những điều cần biết về trường')
-            .map((post) => (
-              <div key={post.Id} className="mx-2 mt-6 flex">
-                <img
-                  src={post.imgSrc}
-                  alt=""
-                  className="h-8 w-8 rounded-full bg-gray-800"
-                />
-                <p> {post.title}</p>
-                <p> {post.description.slice(0, 50)}</p>
-                <p> {post.date}</p>
-              </div>
-            ))} */}
         </div>
       </div>
     </div>

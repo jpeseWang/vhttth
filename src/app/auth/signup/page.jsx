@@ -9,6 +9,7 @@ import ConfirmationModal from './Modal/ConfirmationModal'
 import logo from '@/images/logos/logo.png'
 import Image from 'next/image'
 import emailjs from '@emailjs/browser'
+import toast from 'react-hot-toast'
 
 const Register = () => {
   const [error, setError] = useState(null)
@@ -85,7 +86,6 @@ const Register = () => {
       const email = e.target[3].value
       const dob = e.target[4].value
       const password = e.target[5].value
-      console.log('pass: ', password)
 
       if (password) {
         try {
@@ -100,6 +100,7 @@ const Register = () => {
               role: 'User',
             }),
           })
+          toast.success('Tạo tài khoản thành công!')
           res.status === 201 &&
             router.push('/auth/login?success=Account has been created!')
         } catch (err) {
@@ -108,6 +109,7 @@ const Register = () => {
         }
       } else setSamePass(true)
     } catch (err) {
+      toast.error('Đã có lỗi xảy ra. Vui lòng thử lại!')
       console.log(err)
       setUploading(false)
     }
@@ -167,7 +169,7 @@ const Register = () => {
                 htmlFor="fullname"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
-                Full Name
+                Họ và tên
               </label>
               <div className="mt-2">
                 <input
@@ -176,7 +178,7 @@ const Register = () => {
                   type="text"
                   required
                   className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-gray-200 sm:text-sm sm:leading-6"
-                  placeholder="Ex: Leif Le"
+                  placeholder="Vd: Nguyễn Thanh Tâm"
                 />
               </div>
             </div>
@@ -186,7 +188,7 @@ const Register = () => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
               >
-                Email address
+                Địa chỉ Email
               </label>
               <div className="mt-2">
                 <input
@@ -196,7 +198,7 @@ const Register = () => {
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-gray-200 sm:text-sm sm:leading-6"
-                  placeholder="Ex: user@gmail.com"
+                  placeholder="Vd: user@gmail.com"
                   onChange={(e) => {
                     setEmail(e.target.value)
                   }}
@@ -208,7 +210,7 @@ const Register = () => {
                 htmlFor="dob"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
-                Date of Birth
+                Ngày sinh
               </label>
               <div className="mt-2">
                 <input
@@ -227,7 +229,7 @@ const Register = () => {
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                 >
-                  Password
+                  Mật khẩu
                 </label>
               </div>
               <div className="mt-2">
@@ -241,13 +243,13 @@ const Register = () => {
                 />
               </div>
             </div>
-            <div>
+            {/* <div>
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Confirm Password
+                  Xác nhận mật khẩu
                 </label>
               </div>
               <div className="mt-2">
@@ -262,10 +264,10 @@ const Register = () => {
               </div>
               {samePass && (
                 <p className="py-1 text-sm font-medium text-red-500">
-                  Password is not matched!
+                  Mật khẩu không trùng khớp. Vui lòng thử lại!
                 </p>
               )}
-            </div>
+            </div> */}
             <button className="hidden" type="submit" ref={submitButtonRef}>
               sign up trick
             </button>

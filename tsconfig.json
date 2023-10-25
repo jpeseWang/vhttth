@@ -34,7 +34,8 @@
     "src/app/forum/page.jsx",
     "src/app/management/page.jsx",
     "src/components/Header.jsx",
-    "src/components/Header.jsx"
+    "src/components/Header.jsx",
+    "src/app/categories/sec3/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
