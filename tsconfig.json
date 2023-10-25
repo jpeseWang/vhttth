@@ -32,7 +32,9 @@
     "src/app/api/auth/[...nextauth]/route.js",
     "src/app/auth/signup/page.jsx",
     "src/app/forum/page.jsx",
-    "src/app/management/page.jsx"
+    "src/app/management/page.jsx",
+    "src/components/Header.tsx",
+    "src/components/Header.tsx"
   ],
   "exclude": ["node_modules"]
 }

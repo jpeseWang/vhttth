@@ -19,9 +19,9 @@ import toast from 'react-hot-toast'
 import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import useSWR from 'swr'
 import { classNames } from '@/lib/classNames'
-import { Listbox } from '@headlessui/react'
 
 import PostCreateModal from './Modal/PostCreateModal'
+import Link from 'next/link'
 
 const navigation = [
   { name: 'Posts', href: '#', icon: FolderIcon, current: true },
@@ -44,26 +44,6 @@ const stats = [
   { name: 'Average deploy time', value: '3.65', unit: 'mins' },
   { name: 'Number of servers', value: '3' },
   { name: 'Success rate', value: '98.5%' },
-]
-const statuses = {
-  Completed: 'text-green-400 bg-green-400/10',
-  Error: 'text-rose-400 bg-rose-400/10',
-}
-const activityItems = [
-  {
-    user: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '2d89f0c8',
-    branch: 'main',
-    status: 'Completed',
-    duration: '25s',
-    date: '45 minutes ago',
-    dateTime: '2023-01-23T11:00',
-  },
-  // More items...
 ]
 
 export default function Example() {
@@ -402,9 +382,12 @@ export default function Example() {
                               alt=""
                               className="h-8 w-8 rounded-full bg-gray-800"
                             />
-                            <div className="truncate text-sm font-medium leading-6 dark:text-white">
+                            <Link
+                              href={`/categories/post/${item._id}`}
+                              className="truncate text-sm font-medium leading-6 dark:text-white"
+                            >
                               {item.title.slice(0, 60)}
-                            </div>
+                            </Link>
                           </div>
                         </td>
                         <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">

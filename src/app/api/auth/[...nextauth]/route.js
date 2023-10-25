@@ -61,7 +61,7 @@ const handler = NextAuth({
       }
       return token
     },
-    session: ({ session, token }) => {
+    session: ({ session, token, user }) => {
       if (token) {
         session.id = token.id
         session.fullname = token.fullname
