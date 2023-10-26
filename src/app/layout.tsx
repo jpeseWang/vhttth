@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'Văn hóa truyền thống | THPT Phan Châu Trinh',
   },
   description:
-    'I’m Spencer, a software designer and entrepreneur based in New York City. I’m the founder and CEO of Planetaria, where we develop technologies that empower regular people to explore space on their own terms.',
+    'Băn khoăn tìm mãi bài viết đầu tiên cho chuyên mục “Tự hào là học sinh Phan Châu Trinh”, và rồi chúng mình nhận ra: Có lẽ, ươm mầm tình yêu văn hoá truyền thống nhà trường chính là “viên gạch đầu tiên” đầy vững chắc cho một lòng tự hào nồng nàn về chiếc bảng tên gắn trên ngực trái bộ đồng phục của tất cả chúng ta. ',
   alternates: {
     types: {
       'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
