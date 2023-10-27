@@ -29,8 +29,7 @@ const forumSchema = new Schema(
     authorID: {
       type: String,
     },
-
-    react: [{ id: String }],
+    react: [{ userID: { String } }],
     comment: [
       {
         name: {
@@ -56,4 +55,4 @@ const forumSchema = new Schema(
 )
 
 //If the Post collection does not exist create a new one.
-export default mongoose.models.Post || mongoose.model('Forum', forumSchema)
+export default mongoose.models.Forum || mongoose.model('Forum', forumSchema)
