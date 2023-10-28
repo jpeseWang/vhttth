@@ -36,43 +36,20 @@ export default function Forum() {
   const { data, mutate, error, isLoading } = useSWR(`/api/forum`, fetcher)
 
   const handleUpdateReact = async (id) => {
-    const hasReacted =
-      (await data) &&
-      data.map((item) => {
-        item.react.some((react) => react.userID === session.data.id)
+    //Like
+    try {
+      await fetch(`/api/forum/react/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          userID: session.data.id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-    // Unlike
-    if (hasReacted) {
-      try {
-        await fetch(`/api/forum/react/delete/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            userID: session.data.id,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        mutate()
-      } catch (error) {
-        console.error('Error updating rating:', error)
-      }
-    } else {
-      //Like
-      try {
-        await fetch(`/api/forum/react/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            userID: session.data.id,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        mutate()
-      } catch (error) {
-        console.error('Error updating rating:', error)
-      }
+      mutate()
+    } catch (error) {
+      console.error('Error updating rating:', error)
     }
   }
 
