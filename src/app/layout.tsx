@@ -3,6 +3,7 @@ import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
 import toast, { Toaster } from 'react-hot-toast'
 import '@/styles/tailwind.css'
+import '@/styles/style.css'
 import 'react-quill/dist/quill.snow.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 

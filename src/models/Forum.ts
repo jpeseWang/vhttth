@@ -29,7 +29,17 @@ const forumSchema = new Schema(
     authorID: {
       type: String,
     },
-    react: [{ userID: { String } }],
+    react: [
+      {
+        userID: {
+          type: String,
+        },
+        userEmail: {
+          type: String,
+        },
+      },
+      { timestamps: true },
+    ],
     comment: [
       {
         name: {
