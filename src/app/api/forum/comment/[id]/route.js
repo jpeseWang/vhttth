@@ -2,20 +2,6 @@ import { NextResponse } from 'next/server'
 import connect from '@/lib/db'
 import Forum from '@/models/Forum'
 
-export const GET = async (request, { params }) => {
-  const { id } = params
-
-  try {
-    await connect()
-
-    const post = await Forum.findById(id)
-
-    return new NextResponse(JSON.stringify(post), { status: 200 })
-  } catch (err) {
-    return new NextResponse('Database Error', { status: 500 })
-  }
-}
-
 export const DELETE = async (request, { params }) => {
   const { id } = params
 
@@ -33,15 +19,28 @@ export const DELETE = async (request, { params }) => {
 export const PUT = async (request, { params }) => {
   const { id } = params
   const newComment = await request.json()
+  const { userID } = newComment // Assuming newComment contains userID
 
   try {
     await connect()
-    const post = await Forum.findByIdAndUpdate(id)
+    const post = await Forum.findById(id)
+
     if (!post) {
       return new NextResponse('Post not found', { status: 404 })
     }
 
-    post.comment = post.comment.concat(newComment)
+    // Find the index of the reaction with the matching userID
+    const reactIndex = post.comment.findIndex(
+      (comment) => comment.userID === userID,
+    )
+
+    if (reactIndex === -1) {
+      post.comment = post.comment.concat(newComment)
+    } else {
+      post.comment.splice(reactIndex, 1)
+    }
+
+    // Remove the reaction from the array
 
     await post.save()
 

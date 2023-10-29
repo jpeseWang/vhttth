@@ -45,7 +45,7 @@ const forumSchema = new Schema(
         name: {
           type: String,
         },
-        id: {
+        userID: {
           type: String,
         },
         avatar: {

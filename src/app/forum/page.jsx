@@ -21,17 +21,20 @@ import useSWR from 'swr'
 import LoadingE from '@/components/Loading/LoadingE'
 import './animation.css'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
+import ViewForumModal from './Modal/ViewForum'
 
 export default function Forum() {
   const [modalIsOpen, setIsOpen] = useState(false)
-
+  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  const [viewModalParams, setViewModalParams] = useState('')
   const session = useSession()
   const router = useRouter()
 
   function closeModal() {
     setIsOpen(false)
+    setViewModalIsOpen(false)
   }
-
+  console.log('page >', viewModalParams)
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   const { data, mutate, error, isLoading } = useSWR(`/api/forum`, fetcher)
 
@@ -136,7 +139,13 @@ export default function Forum() {
                       <HeartIcon className="h-6 w-6" />
                     )}
                   </span>
-                  <ChatBubbleOvalLeftIcon className="h-6 w-6" />{' '}
+                  <ChatBubbleOvalLeftIcon
+                    className="h-6 w-6 cursor-pointer"
+                    onClick={() => {
+                      setViewModalParams(post._id)
+                      setViewModalIsOpen(true)
+                    }}
+                  />
                   <PaperAirplaneIcon className="h-6 w-6 -rotate-12" />
                 </div>
 
@@ -148,9 +157,17 @@ export default function Forum() {
                 {post.react.length} likes
               </div>
               <div className="mx-4 text-sm font-medium text-gray-500">
-                <p className="cursor-pointer">
-                  View all {post.comment.length} comments
-                </p>
+                {post.comment.length > 0 && (
+                  <p
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setViewModalParams(post._id)
+                      setViewModalIsOpen(true)
+                    }}
+                  >
+                    View all {post.comment.length} comments
+                  </p>
+                )}
 
                 <div>
                   <input
@@ -167,6 +184,14 @@ export default function Forum() {
             isOpen={modalIsOpen}
             onClose={closeModal}
             reload={mutate}
+          />
+        )}
+        {viewModalIsOpen && (
+          <ViewForumModal
+            isOpen={viewModalIsOpen}
+            onClose={closeModal}
+            reload={mutate}
+            params={viewModalParams}
           />
         )}
       </div>
