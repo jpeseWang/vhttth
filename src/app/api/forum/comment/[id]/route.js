@@ -19,7 +19,6 @@ export const DELETE = async (request, { params }) => {
 export const PUT = async (request, { params }) => {
   const { id } = params
   const newComment = await request.json()
-  const { userID } = newComment // Assuming newComment contains userID
 
   try {
     await connect()
@@ -29,18 +28,7 @@ export const PUT = async (request, { params }) => {
       return new NextResponse('Post not found', { status: 404 })
     }
 
-    // Find the index of the reaction with the matching userID
-    const reactIndex = post.comment.findIndex(
-      (comment) => comment.userID === userID,
-    )
-
-    if (reactIndex === -1) {
-      post.comment = post.comment.concat(newComment)
-    } else {
-      post.comment.splice(reactIndex, 1)
-    }
-
-    // Remove the reaction from the array
+    post.comment = post.comment.concat(newComment)
 
     await post.save()
 

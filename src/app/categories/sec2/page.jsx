@@ -20,9 +20,11 @@ export default function Example() {
             Truyền thống học tập theo tư tưởng “Chi bằng học&ldquo;
           </h2>
           <p className="light:text-gray-600 mt-2 text-lg leading-8">
-            Triết lý học tập của trường, với thông điệp rằng học tập là ưu tiên
-            hàng đầu. Nó có thể nêu rõ cách trường tạo điều kiện để học sinh
-            phát triển kiến thức và kỹ năng.
+            Trường THPT Phan Châu Trinh vốn nổi bật với thành tích dạy và học
+            rực rỡ qua các năm học. Lấy kim chỉ nam là tư tưởng “Chi bằng học”
+            của nhà chí sĩ Phan Châu Trinh, hãy cùng tìm hiểu xem thầy và trò
+            trường ta đã nỗ lực giữ gìn và phát huy truyền thống này như thế nào
+            nhé.
           </p>
           <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
             {data

@@ -21,9 +21,8 @@ export default function Example() {
             Tự hào là học sinh Phan Châu Trinh!
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-200">
-            Thể hiện tinh thần tự hào của học sinh đối với trường Phan Châu
-            Trinh. Có thể bao gồm những thành tựu và giá trị mà trường mong muốn
-            học sinh thể hiện khi họ là học sinh tại đây.
+            Học sinh trường THPT Phan Châu Trinh luôn tự hào khi được trải
+            nghiệm một môi trường học đường đầy năng động và nhiệt huyết.
           </p>
           <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
             {data

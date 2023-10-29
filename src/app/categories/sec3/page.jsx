@@ -22,10 +22,9 @@ export default function Example() {
               Hoạt động ngoại khoá - nơi phong trào thăng hoa
             </h2>
             <p className="light:text-gray-600 mt-6 text-xl leading-8">
-              Nêu bật vai trò của hoạt động ngoại khoá trong việc phát triển học
-              sinh. Nó có thể đề cập đến các hoạt động và chương trình ngoại
-              khoá mà học sinh có thể tham gia để phát triển tài năng và sở
-              thích cá nhân.
+              Bên cạnh thành tích dạy và học, trường THPT Phan Châu Trinh luôn
+              xây dựng rất nhiều sân chơi ngoại khóa bổ ích để các bạn học sinh
+              được trải nghiệm và phát triển các kỹ năng sống cần thiết.
             </p>
             <Image
               src={coverImg}

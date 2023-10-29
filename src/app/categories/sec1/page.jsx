@@ -20,9 +20,10 @@ export default function Example() {
             Những điều cần biết về trường
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">
-            Các thông tin cơ bản về trường học, bao gồm vị trí, cơ sở vật chất,
-            các dịch vụ và tiện ích, lịch học, và các quy định quan trọng mà học
-            sinh và phụ huynh cần biết.
+            Chuyên mục nhằm cung cấp và cập nhật liên tục những thông tin liên
+            quan đến trường: Lịch sử hình thành và phát triển, tiểu sử cụ Phan
+            Châu Trinh, Nội quy nhà trường, cảnh quan trường, Sứ mệnh và mục
+            tiêu phát triển.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">

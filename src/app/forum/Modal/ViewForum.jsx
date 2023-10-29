@@ -27,7 +27,6 @@ export const customStyles = {
 }
 
 export default function ViewForumModal({ isOpen, onClose, reload, params }) {
-  const [isError, setIsError] = useState(false)
   const [isOpenEmoji, setIsOpenEmoji] = useState(false)
   const [isInputCommentOpen, setIsInputCommentOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -77,9 +76,10 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
         }),
       })
 
-      reload()
+      setInputValue('')
       e.target.reset()
       setUploading(false)
+      mutate()
     } catch (err) {
       console.log(err)
       setUploading(false)
@@ -234,6 +234,9 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                               </div>
                             </div>
                           </form>
+                          {uploading && (
+                            <p className="text-gray-500">Uploading...</p>
+                          )}
                         </div>
                       </div>
                     </div>
