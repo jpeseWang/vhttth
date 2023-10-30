@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { TrashIcon } from '@heroicons/react/24/solid'
 import EmojiPicker from 'emoji-picker-react'
 import Modal from 'react-modal'
 import toast from 'react-hot-toast'
@@ -14,6 +13,7 @@ import {
   XMarkIcon,
   FaceSmileIcon,
   HeartIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline'
 import LoadingE from '@/components/Loading/LoadingE'
 import { Tab } from '@headlessui/react'
@@ -44,7 +44,6 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
   }
 
   let date = new Date().toUTCString().slice(5, 16)
-  let datetime = new Date(date).toISOString().slice(0, 10)
   const session = useSession()
   const router = useRouter()
 
@@ -53,15 +52,29 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
     `/api/forum/${params}`,
     fetcher,
   )
-  console.log('model', params)
 
   if (session.status === 'unauthenticated') {
     router?.push('/auth/login')
   }
+  const handleDelete = async (postID, cmtID) => {
+    try {
+      await fetch(`/api/forum/comment/${postID}`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          _id: cmtID,
+        }),
+      })
+      toast('Delete post successfully!', {
+        icon: '👏',
+      })
+      mutate()
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     setUploading(true)
 
     try {
@@ -92,7 +105,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
       {isLoading ? (
         <LoadingE />
       ) : (
-        <div className="bg-white">
+        <div className="bg-white dark:bg-black">
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="absolute right-0 top-0 hidden pr-10 pt-10 sm:block">
               <button
@@ -108,7 +121,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
             <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
               {/* Product image */}
               <div className="lg:col-span-4 lg:row-end-1">
-                <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
+                <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-700">
                   <img
                     src={data.imgSrc}
                     className="object-cover object-center"
@@ -137,7 +150,9 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                   </div>
                 </div>
 
-                <p className="mt-6 text-gray-500">{data.content}</p>
+                <p className="mt-6 text-gray-500 dark:text-gray-300">
+                  {data.content}
+                </p>
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                   <button
@@ -159,7 +174,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                 {isInputCommentOpen && (
                   <div className="mt-10 border-t border-gray-200 pt-10">
                     <div className="prose-sm prose text-gray-500">
-                      <div className="flex items-start space-x-4 bg-white">
+                      <div className="flex items-start space-x-4 bg-white dark:bg-black">
                         <div className="flex-shrink-0">
                           <img
                             className="inline-block h-10 w-10 rounded-full"
@@ -177,7 +192,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                                 rows={3}
                                 name="comment"
                                 id="comment"
-                                className="block w-full resize-none border-0 bg-transparent px-1.5 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                className="block w-full resize-none border-0 bg-transparent px-1.5 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 dark:text-gray-200 sm:text-sm sm:leading-6"
                                 placeholder="Add your comment..."
                                 onChange={(e) => {
                                   setInputValue(e.target.value)
@@ -199,7 +214,8 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                                               <FaceSmileIcon
                                                 className="h-5 w-5 flex-shrink-0"
                                                 aria-hidden="true"
-                                                onClick={() => {
+                                                onClick={(e) => {
+                                                  e.preventDefault()
                                                   setIsOpenEmoji(!isOpenEmoji)
                                                 }}
                                               />
@@ -235,7 +251,9 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                             </div>
                           </form>
                           {uploading && (
-                            <p className="text-gray-500">Uploading...</p>
+                            <p className="text-gray-500 dark:text-gray-300">
+                              Uploading...
+                            </p>
                           )}
                         </div>
                       </div>
@@ -252,7 +270,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                         className={({ selected }) =>
                           classNames(
                             selected
-                              ? 'border-indigo-600 text-indigo-600'
+                              ? 'border-indigo-600 text-indigo-600 dark:text-indigo-500'
                               : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800',
                             'whitespace-nowrap border-b-2 py-6 text-sm font-medium',
                           )
@@ -290,18 +308,26 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                                     'py-10',
                                   )}
                                 >
-                                  <h3 className="font-medium text-gray-900">
+                                  <h3 className="font-medium text-gray-900 dark:text-gray-300">
                                     {review.name}
                                   </h3>
-                                  <p>
+                                  <p className="dark:text-gray-400">
                                     <time dateTime={review.datetime}>
                                       {review.date}
                                     </time>
                                   </p>
 
-                                  <div className="prose-sm prose mt-4 max-w-none text-gray-500">
-                                    {review.content}
+                                  <div className="prose-sm prose mt-4 max-w-none text-gray-500 dark:text-gray-300">
+                                    {review.content}{' '}
                                   </div>
+                                  {/* {session.data.id === review.userID && (
+                                    <TrashIcon
+                                      className=" mr-0 inline h-6 w-6 cursor-pointer hover:text-red-500"
+                                      onClick={() => {
+                                        handleDelete(params, review._id)
+                                      }}
+                                    />
+                                  )} */}
                                 </div>
                               </div>
                             ))}

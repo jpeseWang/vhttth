@@ -204,6 +204,10 @@ export default function PostCreateModal({ isOpen, onClose, reload }) {
                                       <option>
                                         Tự hào là học sinh Phan Châu Trinh!
                                       </option>
+                                      <option>
+                                        Văn hoá ứng xử trường THPT Phan Châu
+                                        Trinh
+                                      </option>
                                     </select>
                                   </div>
                                 </div>

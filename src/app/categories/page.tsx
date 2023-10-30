@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-
 import img1 from './images/img1.jpeg'
 import img2 from './images/img2.jpeg'
 import img3 from './images/img3.jpeg'
@@ -8,6 +7,7 @@ import img4 from './images/img4.jpeg'
 import img5 from './images/img5.jpeg'
 import img6 from './images/img6.jpg'
 import img7 from './images/img7.jpeg'
+import img8 from './images/img8.jpg'
 
 const posts = [
   {
@@ -53,13 +53,6 @@ const posts = [
     date: 'Feb 12, 2020',
     datetime: '2020-02-12',
     imageUrl: img7,
-    readingTime: '11 min',
-    author: {
-      name: 'Daniela Metz',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
   },
   {
     title: 'Tự hào là học sinh Phan Châu Trinh!',
@@ -67,10 +60,18 @@ const posts = [
     category: { name: 'Case Study', href: '#' },
     description:
       'Thể hiện tinh thần tự hào của học sinh đối với trường Phan Châu Trinh. Có thể bao gồm những thành tựu và giá trị mà trường mong muốn học sinh thể hiện khi họ là học sinh tại đây.',
+
+    imageUrl: img3,
+  },
+  {
+    title: 'Văn hoá ứng xử trường THPT Phan Châu Trinh',
+    href: 'categories/sec5',
+    category: { name: 'Case Study', href: '#' },
+    description: 'vhux',
     date: 'Feb 12, 2020',
     datetime: '2020-02-12',
-    imageUrl: img3,
-    readingTime: '11 min',
+    imageUrl: img8,
+
     author: {
       name: 'Daniela Metz',
       href: '#',

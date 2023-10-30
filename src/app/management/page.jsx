@@ -298,6 +298,9 @@ export default function Example() {
                           Hoạt động ngoại khoá - nơi phong trào thăng hoa
                         </option>
                         <option>Tự hào là học sinh Phan Châu Trinh!</option>
+                        <option>
+                          Văn hoá ứng xử trường THPT Phan Châu Trinh
+                        </option>
                       </select>
                     </header>
                   </div>
