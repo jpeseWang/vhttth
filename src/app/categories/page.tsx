@@ -1,5 +1,7 @@
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+import CreateContributeModal from './Modal/CreateContributeModal'
 import img1 from './images/img1.jpeg'
 import img2 from './images/img2.jpeg'
 import img3 from './images/img3.jpeg'
@@ -64,10 +66,11 @@ const posts = [
     imageUrl: img3,
   },
   {
-    title: 'Văn hoá ứng xử trường THPT Phan Châu Trinh',
+    title: 'Văn hoá ứng xử',
     href: 'categories/sec5',
     category: { name: 'Case Study', href: '#' },
-    description: 'vhux',
+    description:
+      'Giới thiệu chuyên mục: Văn hoá ứng xử luôn là truyền thống trường THPT Phan Châu Trinh chú trọng xây dựng và giữ gìn. Qua bao nhiêu năm tháng, văn hoá ứng xử cũng đã trở thành nét đặc trưng riêng đáng quý của các bạn học sinh trường ta.',
     date: 'Feb 12, 2020',
     datetime: '2020-02-12',
     imageUrl: img8,
@@ -82,12 +85,42 @@ const posts = [
 ]
 
 export default function Example() {
+  const [modalIsOpen, setIsOpen] = useState(false)
+  function closeModal() {
+    setIsOpen(false)
+  }
   return (
-    <div className="relative  px-6 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-24">
+    <div className="relative px-6 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-24">
       <div className="absolute inset-0">
         <div className="h-1/3  sm:h-2/3" />
       </div>
       <div className="relative mx-auto max-w-7xl">
+        <div className="mx-auto mb-12 max-w-lg bg-white shadow sm:rounded-lg">
+          <div className="px-4 py-5 sm:p-6 ">
+            <h3 className="text-base font-semibold leading-6 text-gray-900">
+              Hòm thư góp ý
+            </h3>
+            <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+              <div className="max-w-xl text-sm text-gray-500">
+                <p>
+                  Là nơi bạn có thể gửi gắm những tâm tư tình cảm hay chỉ đơn
+                  giản là những đóng góp cho dự án chúng mình.
+                </p>
+              </div>
+              <div className="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+                <button
+                  type="button"
+                  className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  onClick={() => {
+                    setIsOpen(true)
+                  }}
+                >
+                  Gửi ngay
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
             Điều gì đã tạo nên thương hiệu Phan Châu Trinh?
@@ -126,35 +159,12 @@ export default function Example() {
                     </p>
                   </a>
                 </div>
-                {/* <div className="mt-6 flex items-center">
-                  <div className="flex-shrink-0">
-                    <a href={post.author.href}>
-                      <span className="sr-only">{post.author.name}</span>
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={post.author.imageUrl}
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">
-                      <a href={post.author.href} className="hover:underline">
-                        {post.author.name}
-                      </a>
-                    </p>
-                    <div className="flex space-x-1 text-sm text-gray-500">
-                      <time dateTime={post.datetime}>{post.date}</time>
-                      <span aria-hidden="true">&middot;</span>
-                      <span>{post.readingTime} read</span>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           ))}
         </div>
       </div>
+      <CreateContributeModal isOpen={modalIsOpen} onClose={closeModal} />
     </div>
   )
 }
