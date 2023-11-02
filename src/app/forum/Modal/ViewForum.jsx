@@ -159,7 +159,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                     type="button"
                     className="hover:opacity-0.5 flex w-full items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   >
-                    {data.react.length} likes
+                    {data.react.length} lượt thích
                   </button>
                   <button
                     type="button"
@@ -168,7 +168,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                       setIsInputCommentOpen(!isInputCommentOpen)
                     }}
                   >
-                    Write a comment
+                    Viết bình luận ngay
                   </button>
                 </div>
                 {isInputCommentOpen && (
@@ -193,7 +193,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                                 name="comment"
                                 id="comment"
                                 className="block w-full resize-none border-0 bg-transparent px-1.5 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 dark:text-gray-200 sm:text-sm sm:leading-6"
-                                placeholder="Add your comment..."
+                                placeholder="Bình luận của bạn..."
                                 onChange={(e) => {
                                   setInputValue(e.target.value)
                                   console.log(inputValue)
@@ -276,7 +276,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                           )
                         }
                       >
-                        Comments
+                        Bình luận
                       </Tab>
                     </Tab.List>
                   </div>
@@ -312,9 +312,7 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                                     {review.name}
                                   </h3>
                                   <p className="dark:text-gray-400">
-                                    <time dateTime={review.datetime}>
-                                      {review.date}
-                                    </time>
+                                    {review.date}
                                   </p>
 
                                   <div className="prose-sm prose mt-4 max-w-none text-gray-500 dark:text-gray-300">
@@ -333,7 +331,9 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
                             ))}
                         </>
                       ) : (
-                        <p className="mt-4 text-gray-500">No comment yet</p>
+                        <p className="mt-4 text-gray-500">
+                          Chưa có bình luận nào.
+                        </p>
                       )}
                     </Tab.Panel>
                   </Tab.Panels>

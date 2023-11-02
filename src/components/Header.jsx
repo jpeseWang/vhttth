@@ -124,14 +124,16 @@ function MobileNavigation(props) {
                 Navigation
               </h2>
             </div>
+
+            <span className="inline">Giới&nbsp;thiệu</span>
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem href="/about">About</MobileNavItem>
+                <MobileNavItem href="/about">Giới&nbsp;thiệu</MobileNavItem>
                 {/* <MobileNavItem href="/projects">Projects</MobileNavItem> */}
-                <MobileNavItem href="/categories">Category</MobileNavItem>
-                <MobileNavItem href="/forum">Forum</MobileNavItem>
+                <MobileNavItem href="/categories">Danh&nbsp;mục</MobileNavItem>
+                <MobileNavItem href="/forum">Diễn&nbsp;đàn</MobileNavItem>
                 {session.data?.role === 'Admin' && (
-                  <MobileNavItem href="/management">Management</MobileNavItem>
+                  <MobileNavItem href="/management">Quản&nbsp;lý</MobileNavItem>
                 )}
                 {session.status === 'authenticated' ? (
                   <button
@@ -140,10 +142,12 @@ function MobileNavigation(props) {
                       signOut()
                     }}
                   >
-                    Logout
+                    Đăng&nbsp;xuất
                   </button>
                 ) : (
-                  <MobileNavItem href="/auth/login">Login</MobileNavItem>
+                  <MobileNavItem href="/auth/login">
+                    Đăng&nbsp;nhập
+                  </MobileNavItem>
                 )}
               </ul>
             </nav>
@@ -183,12 +187,14 @@ function DesktopNavigation(props) {
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about">About</NavItem>
+        <NavItem href="/about">
+          <span className="inline">Giới&nbsp;thiệu</span>
+        </NavItem>
         {/* <NavItem href="/projects">Projects</NavItem> */}
-        <NavItem href="/categories">Category</NavItem>
-        <NavItem href="/forum">Forum</NavItem>
+        <NavItem href="/categories">Danh&nbsp;mục</NavItem>
+        <NavItem href="/forum">Diễn&nbsp;đàn</NavItem>
         {session.data?.role === 'Admin' && (
-          <NavItem href="/management">Management</NavItem>
+          <NavItem href="/management">Quản&nbsp;lý</NavItem>
         )}
         {session.status === 'authenticated' ? (
           <button
@@ -197,10 +203,10 @@ function DesktopNavigation(props) {
               signOut()
             }}
           >
-            Logout
+            Đăng&nbsp;xuất
           </button>
         ) : (
-          <NavItem href="/auth/login">Login</NavItem>
+          <NavItem href="/auth/login">Đăng&nbsp;nhập</NavItem>
         )}
       </ul>
     </nav>
@@ -448,7 +454,7 @@ export function Header() {
               </div>
               <div className="flex flex-1 justify-end md:justify-center">
                 <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <DesktopNavigation className="pointer-events-auto hidden md:flex" />
               </div>
               <div className="flex justify-end md:flex-1">
                 {session.status === 'authenticated' && (

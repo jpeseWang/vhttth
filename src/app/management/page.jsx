@@ -67,7 +67,7 @@ export default function Example() {
         method: 'DELETE',
       })
       toast('Delete post successfully!', {
-        icon: '👏',
+        icon: '👋',
       })
       mutate()
     } catch (err) {

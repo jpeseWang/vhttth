@@ -66,7 +66,7 @@ export default function Login() {
             <div>
               <Image className="h-20 w-auto" src={logo} alt="Your Company" />
               <h1 className="font-semibold text-indigo-500">
-                {success ? success : 'Welcome Back!'}
+                {success ? success : 'Chào mừng trở lại!'}
               </h1>
               <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight ">
                 Đăng nhập tài khoản

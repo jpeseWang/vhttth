@@ -82,12 +82,12 @@ export default function PostCreateModal({ isOpen, onClose, reload }) {
       e.target.reset()
       setUploading(false)
       onClose()
-      toast.success('Create blog successfully!')
+      toast.success('Tạo bài viết thành công!')
     } catch (err) {
       console.log(err)
       setUploading(false)
       onClose()
-      toast.error('Something went wrong!')
+      toast.error('Đã có lỗi xảy ra!')
     }
   }
 

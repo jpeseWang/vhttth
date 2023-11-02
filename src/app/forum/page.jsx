@@ -11,7 +11,7 @@ import {
   ChatBubbleOvalLeftIcon,
   PaperAirplaneIcon,
   HeartIcon,
-  BookmarkIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline'
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid'
 import { useSession } from 'next-auth/react'
@@ -22,6 +22,7 @@ import LoadingE from '@/components/Loading/LoadingE'
 import './animation.css'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
 import ViewForumModal from './Modal/ViewForum'
+import toast from 'react-hot-toast'
 
 export default function Forum() {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -34,7 +35,7 @@ export default function Forum() {
     setIsOpen(false)
     setViewModalIsOpen(false)
   }
-  console.log('page >', viewModalParams)
+
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   const { data, mutate, error, isLoading } = useSWR(`/api/forum`, fetcher)
 
@@ -53,6 +54,19 @@ export default function Forum() {
       mutate()
     } catch (error) {
       console.error('Error updating rating:', error)
+    }
+  }
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`/api/forum/${id}`, {
+        method: 'DELETE',
+      })
+      toast('Xóa bài viết thành công !', {
+        icon: '👏',
+      })
+      mutate()
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -80,7 +94,7 @@ export default function Forum() {
                 />
                 <div className="ml-3 ">
                   <input
-                    placeholder="What is happening ?!"
+                    placeholder="Bạn đang nghĩ gì ?!"
                     className="bg-transparent outline-none placeholder:text-lg"
                   />
                   <span className="block text-lg text-gray-600 dark:text-gray-300"></span>
@@ -94,7 +108,7 @@ export default function Forum() {
                   <ChatBubbleLeftIcon className="h-5 w-auto text-[#1C9BEF]" />
                 </div>
                 <button className="rounded-full bg-[#1C9BEF] px-2.5 py-1 font-semibold text-white hover:opacity-50">
-                  Post
+                  Đăng tải
                 </button>
               </div>
             </div>
@@ -150,11 +164,18 @@ export default function Forum() {
                 </div>
 
                 <div className="flex">
-                  <BookmarkIcon className="h-6 w-6 " />
+                  {post.authorID === session.data.id && (
+                    <TrashIcon
+                      className="h-6 w-6 cursor-pointer hover:text-red-500"
+                      onClick={() => {
+                        handleDelete(post._id)
+                      }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="mx-4 mb-2 mt-2 text-sm font-semibold">
-                {post.react.length} likes
+                {post.react.length} lượt thích
               </div>
               <div className="mx-4 text-sm font-medium text-gray-500">
                 {post.comment.length > 0 && (
@@ -165,13 +186,17 @@ export default function Forum() {
                       setViewModalIsOpen(true)
                     }}
                   >
-                    View all {post.comment.length} comments
+                    Xem tất cả {post.comment.length} bình luận
                   </p>
                 )}
 
                 <div>
                   <input
-                    placeholder="Add a comment..."
+                    onClick={() => {
+                      setViewModalParams(post._id)
+                      setViewModalIsOpen(true)
+                    }}
+                    placeholder="Viết bình luận..."
                     className="my-2 bg-transparent font-normal text-gray-800 focus:outline-none"
                   />
                 </div>

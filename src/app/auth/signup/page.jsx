@@ -34,7 +34,7 @@ const Register = () => {
   }
   const generate = async () => {
     if (!email) {
-      setError('Please fill all information before submit!')
+      setError('Vui lòng điền đầy đủ thông tin')
       setTimeout(() => {
         setError(null)
       }, 2000)
@@ -243,16 +243,16 @@ const Register = () => {
                 />
               </div>
             </div>
-            {/* <div>
-              <div className="flex items-center justify-between">
+            <div>
+              {/* <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Xác nhận mật khẩu
                 </label>
-              </div>
-              <div className="mt-2">
+              </div> */}
+              {/* <div className="mt-2">
                 <input
                   id="password"
                   name="password"
@@ -261,13 +261,13 @@ const Register = () => {
                   required
                   className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-              </div>
+              </div> */}
               {samePass && (
                 <p className="py-1 text-sm font-medium text-red-500">
-                  Mật khẩu không trùng khớp. Vui lòng thử lại!
+                  Vui lòng điền đầy đủ thông tin!
                 </p>
               )}
-            </div> */}
+            </div>
             <button className="hidden" type="submit" ref={submitButtonRef}>
               sign up trick
             </button>

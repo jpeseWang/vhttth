@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Modal from 'react-modal'
 import styles from './modal.module.css'
-
+import { customStyles } from '@/app/categories/Modal/CreateContributeModal'
 interface ConfirmationModalProps {
   isOpen: boolean
   onClose: () => void
@@ -68,7 +68,7 @@ export default function ConfirmationModal({
           </div>
           {isError && (
             <p className="font-medium text-red-500">
-              Code does not match! Please try again
+              Mã xác nhận không trùng khớp. Vui lòng thử lại!
             </p>
           )}
         </div>
