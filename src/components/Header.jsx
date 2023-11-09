@@ -458,7 +458,12 @@ export function Header() {
               </div>
               <div className="flex justify-end md:flex-1">
                 {session.status === 'authenticated' && (
-                  <p className="pr-2 pt-2">Hi {session.data?.fullname}!</p>
+                  <p
+                    className="flex pr-2 pt-2 md:hidden lg:flex
+                  "
+                  >
+                    Hi {session.data?.fullname}!
+                  </p>
                 )}
 
                 <div className="pointer-events-auto">

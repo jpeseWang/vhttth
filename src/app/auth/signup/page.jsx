@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import useSWR from 'swr'
 import Link from 'next/link'
 import { UserCircleIcon } from '@heroicons/react/24/solid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,10 +20,20 @@ const Register = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [capcha, setCapcha] = useState()
   const [email, setEmail] = useState()
+  const [avatarUrl, setAvatarUrl] = useState()
   const router = useRouter()
   const form = useRef()
   const submitButtonRef = useRef()
 
+  const fetcher = (...args) => fetch(...args).then((res) => res.json())
+  const { data, mutate, error2, isLoading } = useSWR('/api/auth/user', fetcher)
+  const userList = []
+  data?.forEach((user) => {
+    if (user.email) {
+      userList.push(user.email)
+    }
+  })
+  console.log(userList)
   useEffect(() => {
     setCapcha(generateCapcha())
   }, [])
@@ -34,10 +45,12 @@ const Register = () => {
   }
   const generate = async () => {
     if (!email) {
-      setError('Vui lòng điền đầy đủ thông tin')
+      setError('Vui lòng điền đầy đủ thông tin!')
       setTimeout(() => {
         setError(null)
       }, 2000)
+    } else if (userList.includes(email)) {
+      toast.error('Email đã được đăng ký, vui lòng dùng tài khoản khác!')
     } else {
       await emailjs
         .sendForm(
@@ -66,22 +79,24 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    const formData = new FormData()
-    formData.append('file', previewImg)
-    formData.append('upload_preset', 'user_avatar')
     setUploading(true)
-
     try {
-      const response = await fetch(
-        'https://api.cloudinary.com/v1_1/dcebbdzlq/image/upload',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
+      if (previewImg) {
+        const formData = new FormData()
+        formData.append('file', previewImg)
+        formData.append('upload_preset', 'user_avatar')
 
-      const data = await response.json()
+        const response = await fetch(
+          'https://api.cloudinary.com/v1_1/dcebbdzlq/image/upload',
+          {
+            method: 'POST',
+            body: formData,
+          },
+        )
+        const data = await response.json()
+        setAvatarUrl(data.secure_url)
+      }
+
       const fullname = e.target[2].value
       const email = e.target[3].value
       const dob = e.target[4].value
@@ -92,7 +107,9 @@ const Register = () => {
           const res = await fetch('/api/auth/register', {
             method: 'POST',
             body: JSON.stringify({
-              avatar: data.secure_url,
+              avatar: previewImg
+                ? avatarUrl
+                : 'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg',
               fullname,
               email,
               dob,
@@ -136,7 +153,7 @@ const Register = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit} ref={form}>
-            <input className="hidden" name="capcha" value={capcha} />
+            <input className="hidden" name="capcha" value={capcha} required />
             <div className="col-span-full">
               <label
                 htmlFor="photo"
@@ -244,24 +261,6 @@ const Register = () => {
               </div>
             </div>
             <div>
-              {/* <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
-                >
-                  Xác nhận mật khẩu
-                </label>
-              </div> */}
-              {/* <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div> */}
               {samePass && (
                 <p className="py-1 text-sm font-medium text-red-500">
                   Vui lòng điền đầy đủ thông tin!
