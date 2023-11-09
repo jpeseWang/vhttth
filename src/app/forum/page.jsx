@@ -164,14 +164,15 @@ export default function Forum() {
                 </div>
 
                 <div className="flex">
-                  {post.authorID === session.data.id && (
-                    <TrashIcon
-                      className="h-6 w-6 cursor-pointer hover:text-red-500"
-                      onClick={() => {
-                        handleDelete(post._id)
-                      }}
-                    />
-                  )}
+                  {post.authorID === session.data.id ||
+                    (session.data.role === 'Admin' && (
+                      <TrashIcon
+                        className="h-6 w-6 cursor-pointer hover:text-red-500"
+                        onClick={() => {
+                          handleDelete(post._id)
+                        }}
+                      />
+                    ))}
                 </div>
               </div>
               <div className="mx-4 mb-2 mt-2 text-sm font-semibold">

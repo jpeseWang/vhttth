@@ -28,10 +28,10 @@ const handler = NextAuth({
             if (isPasswordCorrect) {
               return user
             } else {
-              throw new Error('Username or Password is incorrect!')
+              throw new Error('Tài khoản hoặc mật khẩu chưa đúng!')
             }
           } else {
-            throw new Error('User not found!')
+            throw new Error('Không tìm thấy người dùng!')
           }
         } catch (err) {
           throw new Error(err)

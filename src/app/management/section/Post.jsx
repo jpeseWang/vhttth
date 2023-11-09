@@ -12,7 +12,7 @@ import {
   TrashIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline'
-
+import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { classNames } from '@/lib/classNames'
 
@@ -23,12 +23,6 @@ const secondaryNavigation = [
   { name: 'Collaborators', href: '#', current: false },
   { name: 'Notifications', href: '#', current: false },
 ]
-const stats = [
-  { name: 'Number of deploys', value: '405' },
-  { name: 'Average deploy time', value: '3.65', unit: 'mins' },
-  { name: 'Number of servers', value: '3' },
-  { name: 'Success rate', value: '98.5%' },
-]
 
 export default function Post() {
   const [categorySelect, setCategorySelect] = useState(
@@ -37,7 +31,12 @@ export default function Post() {
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   const { data, mutate, error, isLoading } = useSWR(`/api/posts`, fetcher)
-
+  const stats = [
+    { name: 'Số bài đăng', value: data?.length },
+    { name: 'Average deploy time', value: '3.65', unit: 'mins' },
+    { name: 'Number of servers', value: '3' },
+    { name: 'Success rate', value: '98.5%' },
+  ]
   const handleDelete = async (id) => {
     try {
       await fetch(`/api/posts/${id}`, {

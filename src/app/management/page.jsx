@@ -12,6 +12,7 @@ import {
   XMarkIcon,
   TrashIcon,
   PencilSquareIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
@@ -23,8 +24,17 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Post from './section/Post'
 import Analysis from './section/Analys'
+import Forum from './section/Forum'
+import User from './section/User'
 
 const navigation = [
+  {
+    name: 'User',
+    href: '#',
+    icon: UserIcon,
+    current: false,
+    component: <User />,
+  },
   {
     name: 'Posts',
     href: '#',
@@ -33,26 +43,20 @@ const navigation = [
     component: <Post />,
   },
   {
-    name: 'Deployments',
+    name: 'Forum',
     href: '#',
     icon: ServerIcon,
     current: false,
-    component: <Post />,
+    component: <Forum />,
   },
-  {
-    name: 'Activity',
-    href: '#',
-    icon: SignalIcon,
-    current: false,
-    component: <Post />,
-  },
-  {
-    name: 'Domains',
-    href: '#',
-    icon: GlobeAltIcon,
-    current: false,
-    component: <Post />,
-  },
+
+  // {
+  //   name: 'Domains',
+  //   href: '#',
+  //   icon: GlobeAltIcon,
+  //   current: false,
+  //   component: <User />,
+  // },
   {
     name: 'Usage',
     href: '#',
@@ -70,9 +74,9 @@ const navigation = [
 ]
 
 export default function Example() {
-  const [currentNavItem, setCurrentNavItem] = useState('Posts')
+  const [currentNavItem, setCurrentNavItem] = useState('User')
   const [isActive, setIsActive] = useState(true)
-  const [activeStepIndex, setActiveStepIndex] = useState(1)
+  const [activeStepIndex, setActiveStepIndex] = useState(0)
   const handleActiveTab = (item) => {
     setCurrentNavItem(item)
     setIsActive(true)
