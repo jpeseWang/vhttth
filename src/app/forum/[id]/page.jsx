@@ -19,7 +19,7 @@ import LoadingE from '@/components/Loading/LoadingE'
 import { Tab } from '@headlessui/react'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
 
-export default function ViewForumModal({ isOpen, onClose, reload, params }) {
+export default function ViewForumModal({ params }) {
   const [isOpenEmoji, setIsOpenEmoji] = useState(false)
   const [isInputCommentOpen, setIsInputCommentOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -100,16 +100,6 @@ export default function ViewForumModal({ isOpen, onClose, reload, params }) {
       ) : (
         <div className="bg-white dark:bg-black">
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <div className="absolute right-0 top-0 hidden pr-10 pt-10 sm:block">
-              <button
-                type="button"
-                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => onClose()}
-              >
-                <span className="sr-only">Close</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
             {/* Product */}
             <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
               {/* Product image */}
