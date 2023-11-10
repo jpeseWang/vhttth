@@ -18,13 +18,6 @@ import {
 import LoadingE from '@/components/Loading/LoadingE'
 import { Tab } from '@headlessui/react'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
-export const customStyles = {
-  content: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    width: '100%',
-    height: '100%',
-  },
-}
 
 export default function ViewForumModal({ isOpen, onClose, reload, params }) {
   const [isOpenEmoji, setIsOpenEmoji] = useState(false)
