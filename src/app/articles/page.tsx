@@ -2,7 +2,6 @@ import React from 'react'
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
-import { formatDate } from '@/lib/getTimeDiff'
 
 function Article({ article }: { article: ArticleWithSlug }) {
   return (
@@ -17,7 +16,7 @@ function Article({ article }: { article: ArticleWithSlug }) {
           className="md:hidden"
           decorate
         >
-          {formatDate(article.date)}
+          {article.date}
         </Card.Eyebrow>
         <Card.Description>{article.description}</Card.Description>
         <Card.Cta>Đọc bài viết</Card.Cta>
@@ -27,7 +26,7 @@ function Article({ article }: { article: ArticleWithSlug }) {
         dateTime={article.date}
         className="mt-1 hidden md:block"
       >
-        {formatDate(article.date)}
+        {article.date}
       </Card.Eyebrow>
     </article>
   )
