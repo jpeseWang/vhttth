@@ -17,7 +17,7 @@ import { InstagramIcon } from '@/components/SocialIcons'
 import { LinkedInIcon } from '@/components/SocialIcons'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import HomeModernIcon from '@heroicons/react/20/solid/esm/HomeModernIcon'
-import { formatDate } from '@/lib/formatDate'
+
 import About from './about/page'
 
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -82,7 +82,7 @@ function Article({ article }: { article: ArticleWithSlug }) {
         {article.title}
       </Card.Title>
       <Card.Eyebrow as="time" dateTime={article.date} decorate>
-        {formatDate(article.date)}
+        {article.date}
       </Card.Eyebrow>
       <Card.Description>{article.description}</Card.Description>
       <Card.Cta>Đọc bài viết</Card.Cta>

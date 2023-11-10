@@ -165,40 +165,43 @@ export default function User() {
             </thead>
 
             <tbody className="divide-y dark:divide-white/5">
-              {data?.map((item) => (
-                <tr key={item.commit}>
-                  <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
-                    <div className="flex items-center gap-x-4">
-                      <img
-                        src={item.avatar}
-                        alt=""
-                        className="h-8 w-8 rounded-full bg-gray-800"
-                      />
-                      <Link
-                        href={`/categories/post/${item._id}`}
-                        className="truncate text-sm font-medium leading-6 dark:text-white"
-                      >
-                        {item.fullname}
-                      </Link>
-                    </div>
-                  </td>
-                  <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
-                    <div className="flex gap-x-3">
-                      <span className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-800 dark:text-white">
-                        {item.email}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
-                    <div className="flex gap-x-3">
-                      <span className="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
-                        {item.role}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="py-4 pl-2  text-sm leading-6 ">
-                    <div className="flex items-center justify-end gap-x-2 sm:justify-start">
-                      {/* <select>
+              {data
+                ?.slice()
+                .reverse()
+                .map((item) => (
+                  <tr key={item.commit}>
+                    <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
+                      <div className="flex items-center gap-x-4">
+                        <img
+                          src={item.avatar}
+                          alt=""
+                          className="h-8 w-8 rounded-full bg-gray-800"
+                        />
+                        <Link
+                          href={`/categories/post/${item._id}`}
+                          className="truncate text-sm font-medium leading-6 dark:text-white"
+                        >
+                          {item.fullname}
+                        </Link>
+                      </div>
+                    </td>
+                    <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                      <div className="flex gap-x-3">
+                        <span className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-800 dark:text-white">
+                          {item.email}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                      <div className="flex gap-x-3">
+                        <span className="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
+                          {item.role}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-4 pl-2  text-sm leading-6 ">
+                      <div className="flex items-center justify-end gap-x-2 sm:justify-start">
+                        {/* <select>
                   <option>
                     Edit <TrashIcon className="h-6 w-6" />
                   </option>
@@ -207,66 +210,66 @@ export default function User() {
                   </option>
                 
                 </select> */}
-                      <div className="flex flex-none items-center gap-x-4">
-                        <Menu as="div" className="relative flex-none">
-                          <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
-                            <span className="sr-only">Open options</span>
+                        <div className="flex flex-none items-center gap-x-4">
+                          <Menu as="div" className="relative flex-none">
+                            <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+                              <span className="sr-only">Open options</span>
 
-                            <a
-                              href="#"
-                              className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                              <a
+                                href="#"
+                                className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                              >
+                                Actions
+                              </a>
+                            </Menu.Button>
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
                             >
-                              Actions
-                            </a>
-                          </Menu.Button>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                          >
-                            <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                              <Menu.Item className="cursor-pointer hover:bg-gray-100">
-                                {({ active }) => (
-                                  <div
-                                    className={classNames(
-                                      active ? 'bg-gray-50' : '',
-                                      'block px-3 py-1 text-sm leading-6 text-gray-900',
-                                    )}
-                                  >
-                                    <span className="inline ">
-                                      <PencilSquareIcon className="inline h-6 pr-1 text-blue-500" />
-                                      Edit
-                                    </span>
-                                  </div>
-                                )}
-                              </Menu.Item>
+                              <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                <Menu.Item className="cursor-pointer hover:bg-gray-100">
+                                  {({ active }) => (
+                                    <div
+                                      className={classNames(
+                                        active ? 'bg-gray-50' : '',
+                                        'block px-3 py-1 text-sm leading-6 text-gray-900',
+                                      )}
+                                    >
+                                      <span className="inline ">
+                                        <PencilSquareIcon className="inline h-6 pr-1 text-blue-500" />
+                                        Edit
+                                      </span>
+                                    </div>
+                                  )}
+                                </Menu.Item>
 
-                              <Menu.Item className="cursor-pointer hover:bg-gray-100">
-                                {({ active }) => (
-                                  <div
-                                    className={classNames(
-                                      active ? 'bg-gray-50' : '',
-                                      'block px-3 py-1 text-sm leading-6 text-gray-900',
-                                    )}
-                                    onClick={() => handleDelete(item._id)}
-                                  >
-                                    <TrashIcon className="inline h-6 pr-1 text-red-500" />
-                                    Delete
-                                  </div>
-                                )}
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
+                                <Menu.Item className="cursor-pointer hover:bg-gray-100">
+                                  {({ active }) => (
+                                    <div
+                                      className={classNames(
+                                        active ? 'bg-gray-50' : '',
+                                        'block px-3 py-1 text-sm leading-6 text-gray-900',
+                                      )}
+                                      onClick={() => handleDelete(item._id)}
+                                    >
+                                      <TrashIcon className="inline h-6 pr-1 text-red-500" />
+                                      Delete
+                                    </div>
+                                  )}
+                                </Menu.Item>
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

@@ -193,6 +193,8 @@ export default function Post() {
             <tbody className="divide-y dark:divide-white/5">
               {data
                 ?.filter((p) => p.category === categorySelect)
+                .slice()
+                .reverse()
                 .map((item) => (
                   <tr key={item.commit}>
                     <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">

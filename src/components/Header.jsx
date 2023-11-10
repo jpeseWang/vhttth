@@ -462,7 +462,7 @@ export function Header() {
                     className="flex pr-2 pt-2 md:hidden lg:flex
                   "
                   >
-                    Hi {session.data?.fullname}!
+                    Chào {session.data?.fullname}!
                   </p>
                 )}
 

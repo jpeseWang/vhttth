@@ -22,7 +22,9 @@ import LoadingE from '@/components/Loading/LoadingE'
 import './animation.css'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
 import ViewForumModal from './Modal/ViewForum'
+import { timeDiff } from '@/lib/timeDiff'
 import toast from 'react-hot-toast'
+import Link from 'next/link'
 
 export default function Forum() {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -121,21 +123,31 @@ export default function Forum() {
           .reverse()
           .map((post, index) => (
             <div
-              className="mx-auto mt-6 max-w-md rounded-lg border p-4 ring-1 ring-gray-100 dark:bg-black dark:ring-gray-700  sm:max-w-xl"
+              className="mx-auto mt-6 max-w-md rounded-lg border p-4 ring-1 ring-gray-100 dark:border-none dark:bg-black  dark:ring-gray-700 sm:max-w-xl"
               key={post._id}
             >
-              <div className="flex items-center px-4 py-3">
-                <img className="h-8 w-8 rounded-full" src={post.authorAvatar} />
-                <div className="ml-3 ">
-                  <span className="block text-sm font-semibold leading-tight antialiased">
-                    {post.author}
-                  </span>
-                  <span className="block text-xs text-gray-600 dark:text-gray-400">
-                    {formatTimeStamp(post.createdAt)}
-                  </span>
-                </div>
+              <div>
+                <Link
+                  href={`/auth/profile/${post.authorID}`}
+                  className="flex items-center px-4 py-3"
+                >
+                  <img
+                    className="h-8 w-8 rounded-full"
+                    src={post.authorAvatar}
+                  />
+                  <div className="ml-3 ">
+                    <span className="block text-sm font-semibold leading-tight antialiased">
+                      {post.author}
+                    </span>
+                    <span className="block text-xs text-gray-600 dark:text-gray-400">
+                      {timeDiff(post.createdAt)}
+                    </span>
+                  </div>
+                </Link>
               </div>
-              <p className="text-gray-800 dark:text-white">{post.content}</p>
+              <p className="ml-3 text-gray-800 dark:text-white">
+                {post.content}
+              </p>
               <img src={post.imgSrc} className="my-2" />
               <div className="mx-4 mb-2 mt-3 flex items-center justify-between">
                 <div className="flex gap-4">
@@ -164,15 +176,14 @@ export default function Forum() {
                 </div>
 
                 <div className="flex">
-                  {post.authorID === session.data.id ||
-                    (session.data.role === 'Admin' && (
-                      <TrashIcon
-                        className="h-6 w-6 cursor-pointer hover:text-red-500"
-                        onClick={() => {
-                          handleDelete(post._id)
-                        }}
-                      />
-                    ))}
+                  {post.authorID === session.data.id && (
+                    <TrashIcon
+                      className="h-6 w-6 cursor-pointer hover:text-red-500"
+                      onClick={() => {
+                        handleDelete(post._id)
+                      }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="mx-4 mb-2 mt-2 text-sm font-semibold">
