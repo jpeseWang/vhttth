@@ -14,7 +14,6 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import EmojiPicker from 'emoji-picker-react'
-import Modal from 'react-modal'
 import toast from 'react-hot-toast'
 import '@/styles/model.css'
 import { classNames } from '@/lib/classNames'
@@ -22,14 +21,6 @@ import { timeDiff } from '@/lib/timeDiff'
 
 import LoadingE from '@/components/Loading/LoadingE'
 import { Tab } from '@headlessui/react'
-import { formatTimeStamp } from '@/lib/formatTimestamp'
-export const customStyles = {
-  content: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    width: '100%',
-    height: '100%',
-  },
-}
 
 export default function ViewForumModal({ params }) {
   const [isOpenEmoji, setIsOpenEmoji] = useState(false)
