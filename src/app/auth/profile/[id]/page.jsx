@@ -10,13 +10,20 @@ import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
 import LoadingE from '@/components/Loading/LoadingE'
-
+import ViewForumModal from '@/app/forum/Modal/ViewForum'
 import './profile.css'
 import Link from 'next/link'
 
 export default function Forum({ params }) {
   const session = useSession()
   const router = useRouter()
+  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  const [viewModalParams, setViewModalParams] = useState('')
+
+  function closeModal() {
+    setViewModalIsOpen(false)
+    setViewModalIsOpen(false)
+  }
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -172,8 +179,16 @@ export default function Forum({ params }) {
                       .slice()
                       .reverse()
                       .map((post, index) => (
-                        <div className="gallery-item" tabIndex="0" key={index}>
-                          <Link href={`/forum/${post._id}`}>
+                        <div
+                          className="gallery-item"
+                          tabIndex="0"
+                          key={index}
+                          onClick={() => {
+                            setViewModalParams(post._id)
+                            setViewModalIsOpen(true)
+                          }}
+                        >
+                          <div>
                             <img
                               src={post.imgSrc}
                               className="gallery-image"
@@ -197,13 +212,21 @@ export default function Forum({ params }) {
                                 </li>
                               </ul>
                             </div>
-                          </Link>
+                          </div>
                         </div>
                       ))}
                   </div>
                 </div>
               </div>
             </div>
+            {viewModalIsOpen && (
+              <ViewForumModal
+                isOpen={viewModalIsOpen}
+                onClose={closeModal}
+                reload={mutate}
+                params={viewModalParams}
+              />
+            )}
           </main>
         )}
       </div>

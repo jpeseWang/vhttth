@@ -25,6 +25,9 @@ import ViewForumModal from './Modal/ViewForum'
 import { timeDiff } from '@/lib/timeDiff'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import { copyToClipboard } from '@/utils/copyToClipboard'
+import CopyButton from '@/components/CopyButton'
+import LikeButton from '@/components/LikeButton/LikeButton'
 
 export default function Forum() {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -165,6 +168,7 @@ export default function Forum() {
                       <HeartIcon className="h-6 w-6" />
                     )}
                   </span>
+
                   <ChatBubbleOvalLeftIcon
                     className="h-6 w-6 cursor-pointer"
                     onClick={() => {
@@ -172,7 +176,9 @@ export default function Forum() {
                       setViewModalIsOpen(true)
                     }}
                   />
-                  <PaperAirplaneIcon className="h-6 w-6 -rotate-12" />
+                  <CopyButton
+                    code={`https://vanhoatruyenthongpct.com/forum/${post._id}`}
+                  />
                 </div>
 
                 <div className="flex">

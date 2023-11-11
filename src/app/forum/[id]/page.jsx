@@ -1,6 +1,15 @@
 'use client'
 
 import React, { useState, useEffect, useRef, Fragment } from 'react'
+import {
+  XMarkIcon,
+  FaceSmileIcon,
+  ChatBubbleOvalLeftIcon,
+  PaperAirplaneIcon,
+  HeartIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline'
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
@@ -9,15 +18,18 @@ import Modal from 'react-modal'
 import toast from 'react-hot-toast'
 import '@/styles/model.css'
 import { classNames } from '@/lib/classNames'
-import {
-  XMarkIcon,
-  FaceSmileIcon,
-  HeartIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline'
+import { timeDiff } from '@/lib/timeDiff'
+
 import LoadingE from '@/components/Loading/LoadingE'
 import { Tab } from '@headlessui/react'
 import { formatTimeStamp } from '@/lib/formatTimestamp'
+export const customStyles = {
+  content: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: '100%',
+    height: '100%',
+  },
+}
 
 export default function ViewForumModal({ params }) {
   const [isOpenEmoji, setIsOpenEmoji] = useState(false)
@@ -45,7 +57,23 @@ export default function ViewForumModal({ params }) {
     `/api/forum/${params.id}`,
     fetcher,
   )
-
+  const handleUpdateReact = async (id) => {
+    //Like
+    try {
+      await fetch(`/api/forum/react/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          userID: session.data.id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      mutate()
+    } catch (error) {
+      console.error('Error updating rating:', error)
+    }
+  }
   if (session.status === 'unauthenticated') {
     router?.push('/auth/login')
   }
@@ -98,8 +126,8 @@ export default function ViewForumModal({ params }) {
       {isLoading ? (
         <LoadingE />
       ) : (
-        <div className="bg-white dark:bg-black">
-          <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div className="bg-white dark:bg-transparent">
+          <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-6xl lg:px-8">
             {/* Product */}
             <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
               {/* Product image */}
@@ -126,7 +154,7 @@ export default function ViewForumModal({ params }) {
                           {data.author}
                         </span>
                         <span className="block text-xs text-gray-500 dark:text-gray-400">
-                          {formatTimeStamp(data.createdAt)}
+                          {timeDiff(data.createdAt)}
                         </span>
                       </div>
                     </div>
@@ -136,28 +164,61 @@ export default function ViewForumModal({ params }) {
                 <p className="mt-6 text-gray-500 dark:text-gray-300">
                   {data.content}
                 </p>
+                <div>
+                  <div className=" mt-6 flex items-center justify-between border-t  border-gray-200 pt-4 ">
+                    <div className="flex gap-4">
+                      <span
+                        className="h-7 w-7 cursor-pointer "
+                        onClick={() => {
+                          handleUpdateReact(data._id)
+                        }}
+                      >
+                        {data.react.some(
+                          (rating) => rating.userID === session.data.id,
+                        ) ? (
+                          <SolidHeartIcon className="h-7 w-7 text-[#FF3140]" />
+                        ) : (
+                          <HeartIcon className="h-7 w-7" />
+                        )}
+                      </span>
+                      <ChatBubbleOvalLeftIcon
+                        className="h-7 w-7 cursor-pointer"
+                        onClick={() => {
+                          setIsInputCommentOpen(!isInputCommentOpen)
+                        }}
+                      />
+                    </div>
 
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                    <div className="flex">
+                      <PaperAirplaneIcon className="h-7 w-7 -rotate-12" />
+                    </div>
+                  </div>
+                  <div className="border-b border-gray-200 pb-2">
+                    <p className="mt-2 text-sm font-semibold">
+                      {' '}
+                      {data.react.length} lượt thích
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-2 grid grid-cols-1 gap-x-6 sm:grid-cols-2">
                   <button
                     type="button"
-                    className="hover:opacity-0.5 flex w-full items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                    className="hover:opacity-0.5 flex hidden w-full items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   >
                     {data.react.length} lượt thích
                   </button>
                   <button
                     type="button"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                    onClick={() => {
-                      setIsInputCommentOpen(!isInputCommentOpen)
-                    }}
+                    className="flex h-0 w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-transparent  "
                   >
                     Viết bình luận ngay
                   </button>
                 </div>
+
                 {isInputCommentOpen && (
-                  <div className="mt-10 border-t border-gray-200 pt-10">
+                  <div className="mt-0">
                     <div className="prose-sm prose text-gray-500">
-                      <div className="flex items-start space-x-4 bg-white dark:bg-black">
+                      <div className="flex items-start space-x-4 bg-white dark:bg-transparent">
                         <div className="flex-shrink-0">
                           <img
                             className="inline-block h-10 w-10 rounded-full"
@@ -228,7 +289,7 @@ export default function ViewForumModal({ params }) {
                                   type="submit"
                                   className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                  Post
+                                  Đăng tải
                                 </button>
                               </div>
                             </div>

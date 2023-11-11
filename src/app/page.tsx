@@ -12,11 +12,11 @@ import image4 from '@/images/moments/img-6.jpeg'
 import image5 from '@/images/moments/img-4.jpeg'
 import FlagIcon from '@heroicons/react/24/solid/esm/FlagIcon'
 import StarIcon from '@heroicons/react/20/solid/esm/StarIcon'
-import pctLogo from '@/images/logos/pctLogo.svg'
 import { InstagramIcon } from '@/components/SocialIcons'
 import { LinkedInIcon } from '@/components/SocialIcons'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import HomeModernIcon from '@heroicons/react/20/solid/esm/HomeModernIcon'
+import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
 
 import About from './about/page'
 
@@ -64,12 +64,25 @@ function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+    // <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+    //   <path
+    //     d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
+    //     strokeWidth="1.5"
+    //     strokeLinecap="round"
+    //     strokeLinejoin="round"
+    //   />
+    // </svg>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 16 16"
+      {...props}
+    >
       <path
-        d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
       />
     </svg>
   )
@@ -205,9 +218,13 @@ function Resume() {
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
-      <Button href="#" variant="secondary" className="group mt-6 w-full">
+      <Button
+        href="/categories"
+        variant="secondary"
+        className="group mt-6 w-full"
+      >
         Tìm hiểu thêm
-        <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+        <ArrowLongRightIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
     </div>
   )
