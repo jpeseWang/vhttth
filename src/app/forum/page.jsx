@@ -25,9 +25,7 @@ import ViewForumModal from './Modal/ViewForum'
 import { timeDiff } from '@/lib/timeDiff'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
-import { copyToClipboard } from '@/utils/copyToClipboard'
 import CopyButton from '@/components/CopyButton'
-import LikeButton from '@/components/LikeButton/LikeButton'
 
 export default function Forum() {
   const [modalIsOpen, setIsOpen] = useState(false)
